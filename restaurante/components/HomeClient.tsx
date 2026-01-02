@@ -73,7 +73,7 @@ export default function HomeClient({ site }: { site: Site }) {
             </div>
 
             {/* “app-like” quick actions en móvil */}
-            <div className="mt-7 grid grid-cols-3 gap-3 md:hidden">
+            <div className="mt-7 grid grid-cols-2 gap-3 md:hidden sm:grid-cols-3">
               <Link
                 className="glass rounded-2xl p-3"
                 href="/carta"
@@ -89,7 +89,7 @@ export default function HomeClient({ site }: { site: Site }) {
                 <p className="text-[11px] text-white/70">Ambiente & platos</p>
               </Link>
               <a
-                className="glass rounded-2xl p-3"
+                className="glass rounded-2xl p-3 col-span-2 sm:col-span-1"
                 href={site.links.maps}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -123,8 +123,8 @@ export default function HomeClient({ site }: { site: Site }) {
               />
             </div>
 
-            <div className="pointer-events-none absolute -bottom-6 left-1/2 w-[92%] -translate-x-1/2">
-              <div className="glass grid grid-cols-3 gap-3 rounded-3xl p-4">
+            <div className="mt-4 w-full md:pointer-events-none md:absolute md:-bottom-6 md:left-1/2 md:mt-0 md:w-[92%] md:-translate-x-1/2">
+              <div className="glass grid gap-3 rounded-3xl p-4 sm:grid-cols-2 md:grid-cols-3">
                 {site.highlights.map((h: any) => (
                   <div key={h.title} className="rounded-2xl bg-white/5 p-3">
                     <p className="text-xs font-extrabold">{h.title}</p>
