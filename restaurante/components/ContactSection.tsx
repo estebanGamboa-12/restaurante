@@ -5,9 +5,9 @@ import ReservationForm from "@/components/ReservationForm";
 
 type Site = any;
 
-export default function ContactSection({ site }: { site: Site }) {
+export default function ContactSection({ site, id }: { site: Site; id?: string }) {
   return (
-    <section className="mx-auto max-w-6xl px-5 py-14">
+    <section id={id} className="mx-auto max-w-6xl scroll-mt-24 px-5 py-14">
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="glass rounded-3xl p-6">
           <h2 className="text-3xl font-black md:text-4xl">Reserva tu mesa</h2>

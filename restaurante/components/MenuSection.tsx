@@ -11,10 +11,12 @@ export default function MenuSection({
   site,
   title = "Carta",
   description = "Filtra por categoría o busca tu plato favorito.",
+  id,
 }: {
   site: Site;
   title?: string;
   description?: string;
+  id?: string;
 }) {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState(site.menu.categories[0]);
@@ -55,7 +57,7 @@ export default function MenuSection({
   );
 
   return (
-    <section className="mx-auto max-w-6xl px-5 py-14">
+    <section id={id} className="mx-auto max-w-6xl scroll-mt-24 px-5 py-14">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 className="text-3xl font-black md:text-5xl">{title}</h2>

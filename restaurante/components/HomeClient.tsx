@@ -2,13 +2,18 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   BadgeCheck,
   Clock,
   Heart,
+  Home,
+  ImageIcon,
+  Phone,
   Sparkles,
   Star,
+  UtensilsCrossed,
 } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import MenuSection from "@/components/MenuSection";
@@ -19,6 +24,7 @@ import Link from "next/link";
 type Site = any;
 
 export default function HomeClient({ site }: { site: Site }) {
+  const [activeSection, setActiveSection] = useState("inicio");
   const fadeUp = {
     hidden: { opacity: 0, y: 26 },
     show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
@@ -29,12 +35,34 @@ export default function HomeClient({ site }: { site: Site }) {
     show: { transition: { staggerChildren: 0.10 } },
   };
 
+  useEffect(() => {
+    const ids = ["inicio", "carta", "galeria", "contacto"];
+    const elements = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-35% 0px -45% 0px", threshold: 0.1 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <main className="relative">
+    <main className="relative pb-28 md:pb-0">
       <SiteHeader site={site} />
 
       {/* HERO */}
-      <section className="mx-auto max-w-6xl px-5 pt-10 pb-12 md:pt-16 md:pb-16">
+      <section id="inicio" className="mx-auto max-w-6xl scroll-mt-24 px-5 pt-10 pb-12 md:pt-16 md:pb-16">
         <motion.div initial="hidden" animate="show" variants={stagger} className="grid gap-8 lg:grid-cols-2">
           <motion.div variants={fadeUp}>
             <div className="flex flex-wrap gap-2">
@@ -140,10 +168,15 @@ export default function HomeClient({ site }: { site: Site }) {
       </section>
 
       {/* MENU */}
-      <MenuSection site={site} title="Carta más deseada en Sevilla" description="Carta completa con platos recomendados, los más pedidos y filtros por categoría." />
+      <MenuSection
+        site={site}
+        id="carta"
+        title="Carta más deseada en Sevilla"
+        description="Carta completa con platos recomendados, los más pedidos y filtros por categoría."
+      />
 
       {/* GALLERY */}
-      <section className="mx-auto max-w-6xl px-5 py-14">
+      <section id="galeria" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-14">
         <h2 className="text-3xl font-black md:text-4xl">Galería</h2>
         <p className="mt-2 text-white/75">Ambiente, platos y brasa en su punto.</p>
 
@@ -182,11 +215,41 @@ export default function HomeClient({ site }: { site: Site }) {
       </section>
 
       {/* CONTACT */}
-      <ContactSection site={site} />
+      <ContactSection site={site} id="contacto" />
 
       <section className="mx-auto max-w-6xl px-5 pb-12">
         <SiteFooter site={site} />
       </section>
+
+      <div className="pointer-events-none fixed bottom-4 left-1/2 z-50 w-[92%] -translate-x-1/2 md:hidden">
+        <nav className="glass pointer-events-auto grid grid-cols-4 gap-2 rounded-3xl p-2">
+          {[
+            { id: "inicio", label: "Inicio", icon: Home },
+            { id: "carta", label: "Carta", icon: UtensilsCrossed },
+            { id: "galeria", label: "Galería", icon: ImageIcon },
+            { id: "contacto", label: "Contacto", icon: Phone },
+          ].map((item) => {
+            const isActive = activeSection === item.id;
+            const Icon = item.icon;
+            return (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                aria-current={isActive ? "page" : undefined}
+                className={[
+                  "flex flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] font-semibold transition",
+                  isActive
+                    ? "bg-white/15 text-white shadow-[0_0_18px_rgba(255,255,255,0.18)]"
+                    : "text-white/60 hover:text-white",
+                ].join(" ")}
+              >
+                <Icon className="h-5 w-5" aria-hidden="true" />
+                <span>{item.label}</span>
+              </a>
+            );
+          })}
+        </nav>
+      </div>
     </main>
   );
 }
