@@ -65,6 +65,8 @@ export const site = {
         desc: "Jamón ibérico y bechamel suave con toque ahumado.",
         price: "9,50€",
         category: "Entrantes",
+        image:
+          "https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         spicy: false,
         veggie: false,
         badge: "Más pedido",
@@ -74,6 +76,8 @@ export const site = {
         desc: "Tomate, albahaca, pesto suave y aceite premium.",
         price: "12,00€",
         category: "Entrantes",
+        image:
+          "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         spicy: false,
         veggie: true,
         badge: "Recomendado",
@@ -83,6 +87,8 @@ export const site = {
         desc: "Cocción lenta + brasa final. Salsa casera.",
         price: "19,90€",
         category: "Brasa",
+        image:
+          "https://images.unsplash.com/photo-1508615263227-c5d58c1e5821?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         spicy: true,
         veggie: false,
         badge: "Recomendado",
@@ -92,6 +98,8 @@ export const site = {
         desc: "350g, patata asada y chimichurri suave.",
         price: "22,50€",
         category: "Brasa",
+        image:
+          "https://images.unsplash.com/photo-1702741168115-cd3d9a682972?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         spicy: false,
         veggie: false,
         badge: "Más pedido",
@@ -101,6 +109,8 @@ export const site = {
         desc: "Nata ligera, setas y parmesano.",
         price: "15,90€",
         category: "Pasta",
+        image:
+          "https://images.unsplash.com/photo-1555992336-03a23c92cf9a?auto=format&fit=crop&w=1400&q=80",
         spicy: false,
         veggie: true,
       },
@@ -109,6 +119,8 @@ export const site = {
         desc: "Base crujiente, crema suave y coulis de frutos rojos.",
         price: "6,90€",
         category: "Postres",
+        image:
+          "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=1400&q=80",
         spicy: false,
         veggie: true,
         badge: "Recomendado",
@@ -118,6 +130,8 @@ export const site = {
         desc: "Aperol, cava, soda y twist cítrico.",
         price: "8,50€",
         category: "Bebidas",
+        image:
+          "https://images.unsplash.com/photo-1529417305482-41dcb2f8ccfd?auto=format&fit=crop&w=1400&q=80",
         spicy: false,
         veggie: true,
       },
