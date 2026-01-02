@@ -1,10 +1,15 @@
 export const site = {
   brand: {
     name: "FUEGO & BRASA",
-    city: "Madrid",
-    tagline: "Cocina a la brasa. Sabor que se queda.",
+    city: "Sevilla",
+    tagline: "Brasa en Sevilla. Sabor que se queda.",
     description:
-      "Carne premium, verduras a la brasa y coctelería de autor. Reserva en 30 segundos y ven a comer como Dios manda.",
+      "Restaurante en Sevilla con brasa real, producto premium y ambiente con encanto. Cocina abierta, carta cuidada y reservas fáciles.",
+    seo: {
+      title: "Restaurante en Sevilla | Fuego & Brasa",
+      description:
+        "Restaurante en Sevilla con cocina a la brasa, platos recomendados y terraza. Reserva mesa y descubre la carta más deseada.",
+    },
   },
 
   links: {
@@ -12,23 +17,23 @@ export const site = {
       "https://wa.me/34999000111?text=Hola%20Fuego%20%26%20Brasa%2C%20quiero%20reservar%20una%20mesa",
     instagram: "https://instagram.com/",
     maps:
-      "https://www.google.com/maps?q=Calle+de+la+Rosa+24,+Madrid",
+      "https://www.google.com/maps?q=Calle+Sierpes+18,+Sevilla",
   },
 
   contact: {
-    address: "Calle de la Rosa 24, Madrid",
+    address: "Calle Sierpes 18, Sevilla",
     phone: "+34 999 000 111",
     email: "hola@fuegoybrasa.com",
     hours: "Lun–Dom · 13:00–16:30 · 20:00–00:30",
-    notes: "Cocina abierta hasta las 23:30. Opciones veganas y sin gluten.",
+    notes: "Cocina abierta hasta las 23:30. Opciones veganas, sin gluten y terraza.",
     mapEmbedUrl:
-      "https://www.google.com/maps?q=Calle%20de%20la%20Rosa%2024,%20Madrid&output=embed",
+      "https://www.google.com/maps?q=Calle%20Sierpes%2018,%20Sevilla&output=embed",
   },
 
   hero: {
-    badges: ["Reserva en 30s", "Brasa real", "Cócteles top"],
-    primaryCta: "Reservar por WhatsApp",
-    secondaryCta: "Ver carta",
+    badges: ["Restaurante en Sevilla", "Terraza y brasa real", "Platos recomendados"],
+    primaryCta: "Reservar mesa",
+    secondaryCta: "Ver carta completa",
     heroImage:
       "https://images.unsplash.com/photo-1541542684-4bf98f785c25?auto=format&fit=crop&w=1600&q=80",
   },
@@ -46,6 +51,10 @@ export const site = {
       title: "Coctelería de autor",
       text: "Clásicos y firma. Una experiencia completa.",
     },
+    {
+      title: "Terraza en Sevilla",
+      text: "Mesa al sol o interior con ambiente chill.",
+    },
   ],
 
   menu: {
@@ -58,6 +67,7 @@ export const site = {
         category: "Entrantes",
         spicy: false,
         veggie: false,
+        badge: "Más pedido",
       },
       {
         name: "Ensalada de burrata",
@@ -66,6 +76,7 @@ export const site = {
         category: "Entrantes",
         spicy: false,
         veggie: true,
+        badge: "Recomendado",
       },
       {
         name: "Costillar BBQ de la casa",
@@ -74,6 +85,7 @@ export const site = {
         category: "Brasa",
         spicy: true,
         veggie: false,
+        badge: "Recomendado",
       },
       {
         name: "Entrecot a la brasa",
@@ -82,6 +94,7 @@ export const site = {
         category: "Brasa",
         spicy: false,
         veggie: false,
+        badge: "Más pedido",
       },
       {
         name: "Pasta trufada",
@@ -98,6 +111,7 @@ export const site = {
         category: "Postres",
         spicy: false,
         veggie: true,
+        badge: "Recomendado",
       },
       {
         name: "Spritz Brasa",
