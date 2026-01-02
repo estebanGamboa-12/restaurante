@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function ContactoPage() {
   return (
-    <main className="relative">
+    <main className="relative pb-24 md:pb-0">
       <SiteHeader site={site} />
       <ContactSection site={site} />
       <section className="mx-auto max-w-6xl px-5 pb-12">
