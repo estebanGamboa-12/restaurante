@@ -28,7 +28,7 @@ export default function HomeClient({ site }: { site: Site }) {
   };
 
   return (
-    <main className="relative pb-12 md:pb-0">
+    <main className="relative pb-24 md:pb-0">
       <SiteHeader site={site} />
 
       {/* HERO */}

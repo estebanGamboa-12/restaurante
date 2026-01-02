@@ -1,7 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { Flame, Instagram, MessageCircle } from "lucide-react";
+import {
+  Flame,
+  Home,
+  Image,
+  Instagram,
+  MessageCircle,
+  Phone,
+  UtensilsCrossed,
+} from "lucide-react";
 
 type Site = any;
 
@@ -43,22 +51,38 @@ export default function SiteHeader({ site }: { site: Site }) {
           </div>
         </div>
       </div>
-      <nav className="glass mx-auto flex max-w-6xl gap-3 overflow-x-auto px-5 pb-4 md:hidden">
-        {[
-          { href: "/", label: "Inicio" },
-          { href: "/carta", label: "Carta" },
-          { href: "/galeria", label: "Galería" },
-          { href: "/contacto", label: "Contacto" },
-          { href: "/reservas", label: "Reservas" },
-        ].map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="glass shrink-0 rounded-full px-4 py-2 text-xs font-semibold text-white/80 hover:text-white"
-          >
-            {item.label}
-          </Link>
-        ))}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
+        <div className="mx-auto max-w-6xl px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3">
+          <div className="glass grid grid-cols-5 gap-2 rounded-[28px] px-3 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+            {[
+              { href: "/", label: "Inicio", icon: Home },
+              { href: "/carta", label: "Carta", icon: UtensilsCrossed },
+              { href: "/galeria", label: "Galería", icon: Image },
+              { href: "/contacto", label: "Contacto", icon: Phone },
+              { href: "/reservas", label: "Reservar", icon: MessageCircle, primary: true },
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={[
+                    "group flex flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] font-semibold transition",
+                    item.primary
+                      ? "bg-white text-black shadow-[0_10px_24px_rgba(255,255,255,0.25)]"
+                      : "text-white/70 hover:text-white hover:bg-white/10",
+                  ].join(" ")}
+                >
+                  <Icon
+                    className={item.primary ? "icon-lg" : "icon"}
+                    aria-hidden="true"
+                  />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </nav>
     </div>
   );
