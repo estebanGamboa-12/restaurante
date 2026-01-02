@@ -3,8 +3,21 @@ import "./globals.css";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: `${site.brand.name} | ${site.brand.city}`,
-  description: site.brand.description,
+  title: site.brand.seo.title,
+  description: site.brand.seo.description,
+  keywords: [
+    "restaurante en Sevilla",
+    "brasa Sevilla",
+    "terraza Sevilla",
+    "carta restaurante",
+    "reservar mesa Sevilla",
+  ],
+  openGraph: {
+    title: site.brand.seo.title,
+    description: site.brand.seo.description,
+    locale: "es_ES",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
