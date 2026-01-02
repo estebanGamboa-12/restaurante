@@ -16,9 +16,9 @@ export default function SiteHeader({ site }: { site: Site }) {
           </Link>
 
           <nav className="hidden items-center gap-6 text-sm text-white/80 md:flex">
+            <Link className="hover:text-white" href="/">Inicio</Link>
             <Link className="hover:text-white" href="/carta">Carta</Link>
-            <Link className="hover:text-white" href="/reservas">Reservas</Link>
-            <Link className="hover:text-white" href="/sobre">Sobre</Link>
+            <Link className="hover:text-white" href="/galeria">Galería</Link>
             <Link className="hover:text-white" href="/contacto">Contacto</Link>
           </nav>
 
@@ -43,6 +43,23 @@ export default function SiteHeader({ site }: { site: Site }) {
           </div>
         </div>
       </div>
+      <nav className="glass mx-auto flex max-w-6xl gap-3 overflow-x-auto px-5 pb-4 md:hidden">
+        {[
+          { href: "/", label: "Inicio" },
+          { href: "/carta", label: "Carta" },
+          { href: "/galeria", label: "Galería" },
+          { href: "/contacto", label: "Contacto" },
+          { href: "/reservas", label: "Reservas" },
+        ].map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="glass shrink-0 rounded-full px-4 py-2 text-xs font-semibold text-white/80 hover:text-white"
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
     </div>
   );
 }

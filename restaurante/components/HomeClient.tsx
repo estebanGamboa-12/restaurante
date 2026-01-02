@@ -2,29 +2,21 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import {
   ArrowRight,
   BadgeCheck,
   Clock,
-  Heart,
-  Home,
-  ImageIcon,
   Phone,
   Sparkles,
-  Star,
   UtensilsCrossed,
 } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
-import MenuSection from "@/components/MenuSection";
-import ContactSection from "@/components/ContactSection";
 import SiteFooter from "@/components/SiteFooter";
 import Link from "next/link";
 
 type Site = any;
 
 export default function HomeClient({ site }: { site: Site }) {
-  const [activeSection, setActiveSection] = useState("inicio");
   const fadeUp = {
     hidden: { opacity: 0, y: 26 },
     show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
@@ -35,34 +27,12 @@ export default function HomeClient({ site }: { site: Site }) {
     show: { transition: { staggerChildren: 0.10 } },
   };
 
-  useEffect(() => {
-    const ids = ["inicio", "carta", "galeria", "contacto"];
-    const elements = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => Boolean(el));
-    if (!elements.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "-35% 0px -45% 0px", threshold: 0.1 }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <main className="relative pb-28 md:pb-0">
+    <main className="relative pb-12 md:pb-0">
       <SiteHeader site={site} />
 
       {/* HERO */}
-      <section id="inicio" className="mx-auto max-w-6xl scroll-mt-24 px-5 pt-10 pb-12 md:pt-16 md:pb-16">
+      <section className="mx-auto max-w-6xl px-5 pt-10 pb-12 md:pt-16 md:pb-16">
         <motion.div initial="hidden" animate="show" variants={stagger} className="grid gap-8 lg:grid-cols-2">
           <motion.div variants={fadeUp}>
             <div className="flex flex-wrap gap-2">
@@ -96,9 +66,9 @@ export default function HomeClient({ site }: { site: Site }) {
 
               <Link
                 className="glass inline-flex items-center gap-2 rounded-full px-5 py-3 font-semibold text-white hover:bg-white/10"
-                href="/carta"
+                href="/galeria"
               >
-                {site.hero.secondaryCta}
+                Ver galería
               </Link>
             </div>
 
@@ -113,10 +83,10 @@ export default function HomeClient({ site }: { site: Site }) {
               </Link>
               <Link
                 className="glass rounded-2xl p-3"
-                href="/reservas"
+                href="/galeria"
               >
-                <p className="mt-2 text-xs font-bold">Reserva</p>
-                <p className="text-[11px] text-white/70">En 30s</p>
+                <p className="mt-2 text-xs font-bold">Galería</p>
+                <p className="text-[11px] text-white/70">Ambiente & platos</p>
               </Link>
               <a
                 className="glass rounded-2xl p-3"
@@ -167,89 +137,52 @@ export default function HomeClient({ site }: { site: Site }) {
         </motion.div>
       </section>
 
-      {/* MENU */}
-      <MenuSection
-        site={site}
-        id="carta"
-        title="Carta más deseada en Sevilla"
-        description="Carta completa con platos recomendados, los más pedidos y filtros por categoría."
-      />
-
-      {/* GALLERY */}
-      <section id="galeria" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-14">
-        <h2 className="text-3xl font-black md:text-4xl">Galería</h2>
-        <p className="mt-2 text-white/75">Ambiente, platos y brasa en su punto.</p>
-
-        <div className="mt-7 grid gap-3 md:grid-cols-4">
-          {site.gallery.map((src: string, i: number) => (
-            <div key={src} className="glass overflow-hidden rounded-3xl">
-              <Image
-                src={src}
-                alt={`Galería ${i + 1}`}
-                width={1400}
-                height={1000}
-                className="h-[220px] w-full object-cover md:h-[260px]"
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {site.reviews.map((r: any) => (
-            <div key={r.name} className="glass rounded-3xl p-5">
-              <div className="flex items-center gap-1">
-                {Array.from({ length: r.stars }).map((_, idx) => (
-                  <Star key={idx} className="icon text-white" aria-hidden="true" />
-                ))}
-              </div>
-              <p className="mt-3 text-sm text-white/80">“{r.text}”</p>
-              <p className="mt-3 text-xs font-bold text-white/70">{r.name}</p>
-              <div className="mt-4 flex items-center gap-2 text-xs text-white/60">
-                <Heart className="icon" aria-hidden="true" />
-                Recomendado
-              </div>
-            </div>
-          ))}
+      <section className="mx-auto max-w-6xl px-5 py-12">
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              title: "Carta",
+              description: "Entrantes, brasa y postres con nuestra selección completa.",
+              icon: UtensilsCrossed,
+              href: "/carta",
+              cta: "Ver carta",
+            },
+            {
+              title: "Galería",
+              description: "Ambiente, platos y brasa en imágenes reales.",
+              icon: ArrowRight,
+              href: "/galeria",
+              cta: "Explorar",
+            },
+            {
+              title: "Contacto",
+              description: "Horarios, ubicación y contacto directo.",
+              icon: Phone,
+              href: "/contacto",
+              cta: "Hablar",
+            },
+          ].map((card) => {
+            const Icon = card.icon;
+            return (
+              <Link key={card.title} href={card.href} className="glass rounded-3xl p-6">
+                <div className="flex items-center justify-between">
+                  <p className="text-xl font-extrabold">{card.title}</p>
+                  <Icon className="icon" aria-hidden="true" />
+                </div>
+                <p className="mt-3 text-sm text-white/70">{card.description}</p>
+                <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white">
+                  {card.cta}
+                  <ArrowRight className="icon" aria-hidden="true" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
-
-      {/* CONTACT */}
-      <ContactSection site={site} id="contacto" />
 
       <section className="mx-auto max-w-6xl px-5 pb-12">
         <SiteFooter site={site} />
       </section>
-
-      <div className="pointer-events-none fixed bottom-4 left-1/2 z-50 w-[92%] -translate-x-1/2 md:hidden">
-        <nav className="glass pointer-events-auto grid grid-cols-4 gap-2 rounded-3xl p-2">
-          {[
-            { id: "inicio", label: "Inicio", icon: Home },
-            { id: "carta", label: "Carta", icon: UtensilsCrossed },
-            { id: "galeria", label: "Galería", icon: ImageIcon },
-            { id: "contacto", label: "Contacto", icon: Phone },
-          ].map((item) => {
-            const isActive = activeSection === item.id;
-            const Icon = item.icon;
-            return (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                aria-current={isActive ? "page" : undefined}
-                className={[
-                  "flex flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] font-semibold transition",
-                  isActive
-                    ? "bg-white/15 text-white shadow-[0_0_18px_rgba(255,255,255,0.18)]"
-                    : "text-white/60 hover:text-white",
-                ].join(" ")}
-              >
-                <Icon className="h-5 w-5" aria-hidden="true" />
-                <span>{item.label}</span>
-              </a>
-            );
-          })}
-        </nav>
-      </div>
     </main>
   );
 }
