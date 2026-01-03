@@ -46,6 +46,8 @@ export default function MenuSection({
     [cat, normalizedQuery, site.menu.items]
   );
 
+  const listKey = `${cat}-${normalizedQuery}`;
+
   return (
     <section id={id} className="mx-auto max-w-6xl scroll-mt-24 px-5 py-14">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -97,9 +99,9 @@ export default function MenuSection({
       </div>
 
       <motion.div
+        key={listKey}
         initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        animate="show"
         variants={stagger}
         className="mt-8 grid gap-4 md:grid-cols-2"
       >
