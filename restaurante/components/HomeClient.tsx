@@ -96,12 +96,15 @@ export default function HomeClient({ site }: { site: Site }) {
               />
             </div>
 
-            <div className="mt-4 hidden w-full md:pointer-events-none md:absolute md:-bottom-6 md:left-1/2 md:mt-0 md:w-[92%] md:-translate-x-1/2 md:block">
-              <div className="glass grid gap-3 rounded-3xl p-4 sm:grid-cols-2 md:grid-cols-3">
+            <div className="mt-4 hidden w-full md:pointer-events-none md:absolute md:-bottom-8 md:left-1/2 md:mt-0 md:w-[88%] md:-translate-x-1/2 md:block">
+              <div className="grid gap-4 rounded-3xl border border-white/10 bg-black/40 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-4">
                 {site.highlights.map((h: any) => (
-                  <div key={h.title} className="rounded-2xl bg-white/5 p-3">
-                    <p className="text-xs font-extrabold">{h.title}</p>
-                    <p className="mt-1 text-[11px] text-white/70">{h.text}</p>
+                  <div
+                    key={h.title}
+                    className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 shadow-[0_8px_20px_rgba(0,0,0,0.25)]"
+                  >
+                    <p className="text-sm font-extrabold text-white">{h.title}</p>
+                    <p className="mt-1 text-xs text-white/70">{h.text}</p>
                   </div>
                 ))}
               </div>
