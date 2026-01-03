@@ -35,7 +35,7 @@ export default function HomeClient({ site }: { site: Site }) {
       <section className="mx-auto max-w-6xl px-5 pt-10 pb-12 md:pt-16 md:pb-16">
         <motion.div initial="hidden" animate="show" variants={stagger} className="grid gap-8 lg:grid-cols-2">
           <motion.div variants={fadeUp}>
-            <div className="flex flex-wrap gap-2">
+            <div className="hidden flex-wrap gap-2 md:flex">
               {site.hero.badges.map((b: string) => (
                 <span
                   key={b}
@@ -65,41 +65,14 @@ export default function HomeClient({ site }: { site: Site }) {
               </Link>
 
               <Link
-                className="glass inline-flex items-center gap-2 rounded-full px-5 py-3 font-semibold text-white hover:bg-white/10"
+                className="glass hidden items-center gap-2 rounded-full px-5 py-3 font-semibold text-white hover:bg-white/10 md:inline-flex"
                 href="/galeria"
               >
                 Ver galería
               </Link>
             </div>
 
-            {/* “app-like” quick actions en móvil */}
-            <div className="mt-7 grid grid-cols-2 gap-3 md:hidden sm:grid-cols-3">
-              <Link
-                className="glass rounded-2xl p-3"
-                href="/carta"
-              >
-                <p className="mt-2 text-xs font-bold">Carta</p>
-                <p className="text-[11px] text-white/70">Ver platos</p>
-              </Link>
-              <Link
-                className="glass rounded-2xl p-3"
-                href="/galeria"
-              >
-                <p className="mt-2 text-xs font-bold">Galería</p>
-                <p className="text-[11px] text-white/70">Ambiente & platos</p>
-              </Link>
-              <a
-                className="glass rounded-2xl p-3 col-span-2 sm:col-span-1"
-                href={site.links.maps}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <p className="mt-2 text-xs font-bold">Cómo llegar</p>
-                <p className="text-[11px] text-white/70">{site.brand.city}</p>
-              </a>
-            </div>
-
-            <div className="mt-8 flex flex-wrap gap-6 text-sm text-white/75">
+            <div className="mt-8 hidden flex-wrap gap-6 text-sm text-white/75 md:flex">
               <span className="inline-flex items-center gap-2">
                 <Clock className="icon" aria-hidden="true" />
                 {site.contact.hours}
@@ -123,7 +96,7 @@ export default function HomeClient({ site }: { site: Site }) {
               />
             </div>
 
-            <div className="mt-4 w-full md:pointer-events-none md:absolute md:-bottom-6 md:left-1/2 md:mt-0 md:w-[92%] md:-translate-x-1/2">
+            <div className="mt-4 hidden w-full md:pointer-events-none md:absolute md:-bottom-6 md:left-1/2 md:mt-0 md:w-[92%] md:-translate-x-1/2 md:block">
               <div className="glass grid gap-3 rounded-3xl p-4 sm:grid-cols-2 md:grid-cols-3">
                 {site.highlights.map((h: any) => (
                   <div key={h.title} className="rounded-2xl bg-white/5 p-3">
