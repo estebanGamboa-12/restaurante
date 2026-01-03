@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Sparkles, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 
 type Site = any;
 
@@ -33,11 +33,6 @@ export default function MenuSection({
 
   const normalizedQuery = q.trim().toLowerCase();
 
-  const featured = useMemo(
-    () => site.menu.items.filter((it: any) => Boolean(it.badge)),
-    [site.menu.items]
-  );
-
   const matchesFilters = (it: any) => {
     const okCat = cat === "Todos" || it.category === cat;
     if (!okCat) return false;
@@ -49,11 +44,6 @@ export default function MenuSection({
   const filtered = useMemo(
     () => site.menu.items.filter((it: any) => matchesFilters(it)),
     [cat, normalizedQuery, site.menu.items]
-  );
-
-  const filteredFeatured = useMemo(
-    () => featured.filter((it: any) => matchesFilters(it)),
-    [featured, cat, normalizedQuery]
   );
 
   return (
@@ -104,50 +94,6 @@ export default function MenuSection({
         <span className="text-xs font-semibold text-white/60">
           {filtered.length} platos
         </span>
-      </div>
-
-      <div className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-6">
-        <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-white/60">
-          <Sparkles className="icon" aria-hidden="true" />
-          Platos recomendados y más pedidos
-        </div>
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
-          {filteredFeatured.length ? (
-            filteredFeatured.map((it: any) => (
-              <div key={it.name} className="glass rounded-3xl border border-white/10 p-5">
-                {it.image ? (
-                  <div className="overflow-hidden rounded-2xl">
-                    <Image
-                      src={it.image}
-                      alt={it.name}
-                      width={640}
-                      height={400}
-                      className="h-36 w-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                ) : null}
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-black">
-                    {it.badge}
-                  </span>
-                  <span className="text-lg font-black">{it.price}</span>
-                </div>
-                <h3 className="mt-3 text-lg font-extrabold">{it.name}</h3>
-                <p className="mt-2 text-sm text-white/70">{it.desc}</p>
-                <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
-                  <span className="rounded-full bg-white/10 px-2 py-1 font-bold">{it.category}</span>
-                  {it.veggie && <span className="rounded-full bg-white/10 px-2 py-1 font-bold">Veg</span>}
-                  {it.spicy && <span className="rounded-full bg-white/10 px-2 py-1 font-bold">Picante</span>}
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="rounded-2xl border border-dashed border-white/20 p-6 text-sm text-white/70">
-              No hay platos recomendados con estos filtros.
-            </div>
-          )}
-        </div>
       </div>
 
       <motion.div
