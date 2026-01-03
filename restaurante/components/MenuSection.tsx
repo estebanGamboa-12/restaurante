@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Search, X } from "lucide-react";
 
 type Site = any;
@@ -21,12 +21,12 @@ export default function MenuSection({
   const [q, setQ] = useState("");
   const [cat, setCat] = useState(site.menu.categories[0]);
 
-  const fadeUp = {
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: 26 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
   };
 
-  const stagger = {
+  const stagger: Variants = {
     hidden: {},
     show: { transition: { staggerChildren: 0.1 } },
   };
