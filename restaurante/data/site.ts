@@ -4,7 +4,7 @@ export const site = {
     city: "Sevilla",
     tagline: "Brasa en Sevilla. Sabor que se queda.",
     description:
-      "Restaurante en Sevilla con brasa real, producto premium y ambiente con encanto. Cocina abierta, carta cuidada y reservas fáciles.",
+      "Brasa auténtica, producto premium y ambiente con encanto. Reserva fácil y sabor que se queda.",
     seo: {
       title: "Restaurante en Sevilla | Fuego & Brasa",
       description:
