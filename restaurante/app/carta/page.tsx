@@ -6,7 +6,7 @@ import SiteFooter from "@/components/SiteFooter";
 
 export const metadata: Metadata = {
   title: `Carta | ${site.brand.seo.title}`,
-  description: "Carta completa del restaurante en Sevilla con platos recomendados y más pedidos.",
+  description: "Carta completa del restaurante en Sevilla con todos los platos.",
 };
 
 export default function CartaPage() {
@@ -16,7 +16,7 @@ export default function CartaPage() {
       <MenuSection
         site={site}
         title="Carta completa"
-        description="Platos recomendados, los más pedidos y opciones veggie. Todo lo que gusta en Sevilla."
+        description="Explora la carta completa y filtra por categorías según te apetezca."
       />
       <section className="mx-auto max-w-6xl px-5 pb-12">
         <SiteFooter site={site} />
