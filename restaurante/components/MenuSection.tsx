@@ -87,7 +87,26 @@ export default function MenuSection({
         </div>
       </div>
 
-      <div className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6">
+      <div className="mt-8 flex flex-wrap items-center gap-2">
+        {site.menu.categories.map((c: string) => (
+          <button
+            key={c}
+            type="button"
+            onClick={() => setCat(c)}
+            className={[
+              "rounded-full px-4 py-2 text-sm font-semibold transition",
+              c === cat ? "bg-white text-black" : "glass hover:bg-white/10",
+            ].join(" ")}
+          >
+            {c}
+          </button>
+        ))}
+        <span className="text-xs font-semibold text-white/60">
+          {filtered.length} platos
+        </span>
+      </div>
+
+      <div className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-6">
         <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-white/60">
           <Sparkles className="icon" aria-hidden="true" />
           Platos recomendados y más pedidos
@@ -129,25 +148,6 @@ export default function MenuSection({
             </div>
           )}
         </div>
-      </div>
-
-      <div className="mt-6 flex flex-wrap items-center gap-2">
-        {site.menu.categories.map((c: string) => (
-          <button
-            key={c}
-            type="button"
-            onClick={() => setCat(c)}
-            className={[
-              "rounded-full px-4 py-2 text-sm font-semibold transition",
-              c === cat ? "bg-white text-black" : "glass hover:bg-white/10",
-            ].join(" ")}
-          >
-            {c}
-          </button>
-        ))}
-        <span className="text-xs font-semibold text-white/60">
-          {filtered.length} platos
-        </span>
       </div>
 
       <motion.div
