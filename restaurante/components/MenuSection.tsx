@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Search, X } from "lucide-react";
 
 type Site = any;
@@ -21,12 +21,12 @@ export default function MenuSection({
   const [q, setQ] = useState("");
   const [cat, setCat] = useState(site.menu.categories[0]);
 
-  const fadeUp = {
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: 26 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
   };
 
-  const stagger = {
+  const stagger: Variants = {
     hidden: {},
     show: { transition: { staggerChildren: 0.1 } },
   };
@@ -45,6 +45,8 @@ export default function MenuSection({
     () => site.menu.items.filter((it: any) => matchesFilters(it)),
     [cat, normalizedQuery, site.menu.items]
   );
+
+  const listKey = `${cat}-${normalizedQuery}`;
 
   return (
     <section id={id} className="mx-auto max-w-6xl scroll-mt-24 px-5 py-14">
@@ -97,9 +99,9 @@ export default function MenuSection({
       </div>
 
       <motion.div
+        key={listKey}
         initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        animate="show"
         variants={stagger}
         className="mt-8 grid gap-4 md:grid-cols-2"
       >
