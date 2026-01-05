@@ -15,19 +15,19 @@ export const site = {
   links: {
     whatsapp:
       "https://wa.me/34999000111?text=Hola%20Fuego%20%26%20Brasa%2C%20quiero%20reservar%20una%20mesa",
-    instagram: "https://instagram.com/",
+    instagram: "https://www.instagram.com/esteban.webdev/",
     maps:
       "https://www.google.com/maps?q=Calle+Sierpes+18,+Sevilla",
   },
 
   contact: {
     address: "Calle Sierpes 18, Sevilla",
-    phone: "+34 999 000 111",
+    phone: "+34 000 000 000",
     email: "hola@fuegoybrasa.com",
     hours: "Lun–Dom · 13:00–16:30 · 20:00–00:30",
     notes: "Cocina abierta hasta las 23:30. Opciones veganas, sin gluten y terraza.",
     mapEmbedUrl:
-      "https://www.google.com/maps?q=Calle%20Sierpes%2018,%20Sevilla&output=embed",
+      "https://www.google.com/maps/place/05270+El+Tiemblo,+%C3%81vila/@40.4126913,-4.5208344,14z/data=!3m1!4b1!4m6!3m5!1s0xd4051960470c0b9:0x55888abcc72c6f7e!8m2!3d40.4130828!4d-4.4993148!16s%2Fm%2F02z8y5q?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D",
   },
 
   hero: {
@@ -157,7 +157,7 @@ export const site = {
     {
       name: "Luis R.",
       text: "Ambiente top y cócteles increíbles. Volvemos fijo.",
-      stars: 5,
+      stars: 4,
     },
     {
       name: "Marta G.",
