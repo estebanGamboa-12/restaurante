@@ -31,12 +31,8 @@ export default function GaleriaPage() {
         editorialText="Todo empezó con una parrilla, un buen producto y las ganas de hacer algo distinto en el centro de Sevilla. Queríamos un sitio donde la brasa fuera la protagonista y la gente se sintiera en casa."
         supportingParagraph="Hoy seguimos con la misma idea: cocina honesta, proveedores de confianza y un equipo que cuida cada detalle. La terraza y el ambiente son parte de lo que somos, pero el plato que llega a la mesa es el que cuenta."
       />
-      {(site as { chef?: { name: string; role?: string; bio: string; quote: string; image: string } }).chef && (
-        <SobreChef chef={(site as { chef: { name: string; role?: string; bio: string; quote: string; image: string } }).chef} />
-      )}
-      {(site as { values?: { title: string; text: string }[] }).values && (
-        <SobreValues values={(site as { values: { title: string; text: string }[] }).values} />
-      )}
+      {site.chef && <SobreChef chef={site.chef} />}
+      {site.values && <SobreValues values={site.values} />}
       <section className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
           <div>

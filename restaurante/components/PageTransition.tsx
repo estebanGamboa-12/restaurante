@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const transition = {
   duration: 0.4,
-  ease: [0.25, 0.1, 0.25, 1],
+  ease: "easeInOut" as const,
 };
 
 export default function PageTransition({

@@ -7,7 +7,7 @@ import { SCROLL_SCENES, SCRUB_EASE } from "@/lib/scrollScenes";
 type ValueItem = { title: string; text: string };
 
 type SobreValuesProps = {
-  values: ValueItem[];
+  values: readonly ValueItem[];
 };
 
 export default function SobreValues({ values }: SobreValuesProps) {
