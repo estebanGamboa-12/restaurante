@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { site } from "@/data/site";
+import { pageMetadata } from "@/lib/metadata";
 import SiteHeader from "@/components/SiteHeader";
 import ContactSection from "@/components/ContactSection";
 import SiteFooter from "@/components/SiteFooter";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: `Reservas | ${site.brand.seo.title}`,
   description: "Reserva mesa en Sevilla con nuestro formulario rápido: personas, terraza o interior y detalles.",
-};
+  path: "/reservas",
+});
 
 export default function ReservasPage() {
   return (

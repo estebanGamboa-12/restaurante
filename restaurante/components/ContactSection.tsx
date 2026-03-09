@@ -1,15 +1,44 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import { Clock, MapPin, Phone, MessageCircle, ArrowRight, Mail } from "lucide-react";
 import ReservationForm from "@/components/ReservationForm";
+import MapSectionSkeleton from "@/components/MapSectionSkeleton";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { SCROLL_SCENES, SCRUB_EASE } from "@/lib/scrollScenes";
+
+const MapSection = dynamic(
+  () => import("@/components/MapSection"),
+  { loading: () => <MapSectionSkeleton /> }
+);
 
 type Site = any;
 
 export default function ContactSection({ site, id }: { site: Site; id?: string }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const formBlockRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const formBlock = formBlockRef.current;
+    if (!section || !formBlock) return;
+
+    const ctx = gsap.context(() => {
+      gsap.set(formBlock, { y: 40, opacity: 0 });
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: section, ...SCROLL_SCENES.SCENE_80 },
+      });
+      tl.to(formBlock, { y: 0, opacity: 1, ease: SCRUB_EASE });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id={id} className="mx-auto max-w-6xl scroll-mt-24 px-5 py-14">
+    <section ref={sectionRef} id={id} className="mx-auto max-w-6xl scroll-mt-24 px-5 py-14">
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="glass rounded-3xl p-6">
+        <div ref={formBlockRef} className="glass rounded-3xl p-6">
           <h2 className="text-3xl font-black md:text-4xl">Reserva tu mesa</h2>
           <p className="mt-2 text-white/75">
             Dinos cuántas personas sois, si preferís terraza o interior y cualquier detalle.
@@ -76,14 +105,12 @@ export default function ContactSection({ site, id }: { site: Site; id?: string }
           </div>
         </div>
 
-        <div className="glass overflow-hidden rounded-3xl">
-          <iframe
-            title="Mapa"
-            src={site.contact.mapEmbedUrl}
-            className="h-[520px] w-full"
-            loading="lazy"
-          />
-        </div>
+        <MapSection
+          mapEmbedUrl={site.contact.mapEmbedUrl}
+          address={site.contact.address}
+          mapsUrl={site.links.maps}
+          className="glass overflow-hidden rounded-3xl"
+        />
       </div>
     </section>
   );

@@ -7,6 +7,45 @@ html {
   scroll-padding-top: 88px;
 }
 
+/* Lenis: cuando está activo, desactivar scroll nativo para evitar conflictos */
+html.lenis,
+html.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Hero headline: líneas para animación GSAP + SplitType */
+.hero-headline .hero-line {
+  display: block;
+  overflow: hidden;
+}
+
+/* Brand story: líneas para reveal línea a línea */
+.brand-story-statement .brand-story-line {
+  display: block;
+  overflow: hidden;
+}
+
+/* Sobre storytelling: líneas para reveal línea a línea */
+.sobre-story-editorial .sobre-story-line {
+  display: block;
+  overflow: hidden;
+}
+
+/* Cinematic headline: líneas para reveal editorial con ScrollTrigger */
+.cinematic-headline .cinematic-headline-line {
+  display: block;
+  overflow: hidden;
+}
+
 body {
   min-height: 100vh;
   color: white;
@@ -41,6 +80,12 @@ body {
 .blob { filter: blur(40px); opacity: 0.55; animation: floaty 7.5s ease-in-out infinite; }
 .blob.delay { animation-delay: 1.2s; }
 .blob.delay2 { animation-delay: 2.4s; }
+
+/* Custom cursor: hide default cursor on desktop when CursorFollower is active */
+body.custom-cursor-active,
+body.custom-cursor-active * {
+  cursor: none !important;
+}
 
 @media (max-width: 640px) {
   body { background-attachment: scroll; }

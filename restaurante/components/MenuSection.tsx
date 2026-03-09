@@ -1,35 +1,43 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Search, X } from "lucide-react";
+import CategoryNav from "@/components/CategoryNav";
+import type { CategoryItem } from "@/components/CategoryNav";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { SCROLL_SCENES, SCRUB_EASE } from "@/lib/scrollScenes";
 
 type Site = any;
+
+const CATEGORY_NAV_ITEMS: CategoryItem[] = [
+  { label: "Entrantes", value: "Entrantes" },
+  { label: "Carnes", value: "Brasa" },
+  { label: "Postres", value: "Postres" },
+  { label: "Coctelería", value: "Bebidas" },
+];
 
 export default function MenuSection({
   site,
   title = "Carta",
   description = "Filtra por categoría o busca tu plato favorito.",
   id,
+  category: controlledCategory,
+  onCategoryChange,
 }: {
   site: Site;
   title?: string;
   description?: string;
   id?: string;
+  category?: string;
+  onCategoryChange?: (category: string) => void;
 }) {
+  const [internalCat, setInternalCat] = useState("Entrantes");
+  const cat = controlledCategory ?? internalCat;
+  const setCat = onCategoryChange ?? setInternalCat;
+
   const [q, setQ] = useState("");
-  const [cat, setCat] = useState(site.menu.categories[0]);
-
-  const fadeUp: Variants = {
-    hidden: { opacity: 0, y: 26 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
-  };
-
-  const stagger: Variants = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.1 } },
-  };
+  const menuSectionRef = useRef<HTMLElement>(null);
 
   const normalizedQuery = q.trim().toLowerCase();
 
@@ -48,8 +56,37 @@ export default function MenuSection({
 
   const listKey = `${cat}-${normalizedQuery}`;
 
+  useEffect(() => {
+    const section = menuSectionRef.current;
+    if (!section) return;
+
+    const ctx = gsap.context(() => {
+      const items = section.querySelectorAll<HTMLElement>(".menu-item");
+      if (!items.length) return;
+      gsap.set(items, { y: 40, opacity: 0 });
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: section, ...SCROLL_SCENES.SCENE_75 },
+      });
+      tl.to(items, { y: 0, opacity: 1, stagger: 0.08, ease: SCRUB_EASE });
+    }, menuSectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id={id} className="mx-auto max-w-6xl scroll-mt-24 px-5 py-14">
+    <section
+      id={id}
+      ref={menuSectionRef}
+      className="mx-auto max-w-6xl scroll-mt-24 px-5 py-14"
+    >
+      <div className="mb-10">
+        <CategoryNav
+          categories={CATEGORY_NAV_ITEMS}
+          value={cat}
+          onSelect={setCat}
+        />
+      </div>
+
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 className="text-3xl font-black md:text-5xl">{title}</h2>
@@ -79,35 +116,19 @@ export default function MenuSection({
         </div>
       </div>
 
-      <div className="mt-8 flex flex-wrap items-center gap-2">
-        {site.menu.categories.map((c: string) => (
-          <button
-            key={c}
-            type="button"
-            onClick={() => setCat(c)}
-            className={[
-              "rounded-full px-4 py-2 text-sm font-semibold transition",
-              c === cat ? "bg-white text-black" : "glass hover:bg-white/10",
-            ].join(" ")}
-          >
-            {c}
-          </button>
-        ))}
+      <div className="mt-6 flex flex-wrap items-center gap-2">
         <span className="text-xs font-semibold text-white/60">
           {filtered.length} platos
         </span>
       </div>
 
-      <motion.div
-        key={listKey}
-        initial="hidden"
-        animate="show"
-        variants={stagger}
-        className="mt-8 grid gap-4 md:grid-cols-2"
-      >
+      <div key={listKey} className="mt-8 grid gap-4 md:grid-cols-2">
         {filtered.length ? (
           filtered.map((it: any) => (
-            <motion.article key={it.name} variants={fadeUp} className="glass rounded-3xl p-6">
+            <article
+              key={it.name}
+              className="menu-item glass rounded-3xl p-6"
+            >
               <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex flex-1 items-start gap-4">
                   {it.image ? (
@@ -142,17 +163,14 @@ export default function MenuSection({
                   <p className="text-xl font-black">{it.price}</p>
                 </div>
               </div>
-            </motion.article>
+            </article>
           ))
         ) : (
-          <motion.article
-            variants={fadeUp}
-            className="rounded-3xl border border-dashed border-white/20 p-6 text-sm text-white/70"
-          >
+          <article className="menu-item rounded-3xl border border-dashed border-white/20 p-6 text-sm text-white/70">
             No hay resultados con estos filtros. Prueba otra categoría o borra la búsqueda.
-          </motion.article>
+          </article>
         )}
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -7,6 +7,7 @@ type Site = any;
 
 function buildMessage(values: {
   name: string;
+  email: string;
   phone: string;
   people: string;
   date: string;
@@ -17,6 +18,7 @@ function buildMessage(values: {
 }) {
   return [
     `Hola, soy ${values.name}.`,
+    values.email ? `Email: ${values.email}.` : null,
     values.phone ? `Teléfono: ${values.phone}.` : null,
     `Personas: ${values.people}.`,
     values.date ? `Fecha: ${values.date}.` : null,
@@ -32,6 +34,7 @@ function buildMessage(values: {
 export default function ReservationForm({ site }: { site: Site }) {
   const [form, setForm] = useState({
     name: "",
+    email: "",
     phone: "",
     people: "2",
     date: "",
@@ -55,9 +58,10 @@ export default function ReservationForm({ site }: { site: Site }) {
     >
       <div className="grid gap-4 md:grid-cols-2">
         <label className="grid gap-2 text-sm">
-          <span className="font-semibold text-white/80">Nombre y apellidos</span>
+          <span className="font-semibold text-white/80">Nombre</span>
           <input
             required
+            type="text"
             value={form.name}
             onChange={(event) => setForm({ ...form, name: event.target.value })}
             placeholder="Tu nombre"
@@ -66,19 +70,31 @@ export default function ReservationForm({ site }: { site: Site }) {
         </label>
 
         <label className="grid gap-2 text-sm">
+          <span className="font-semibold text-white/80">Email</span>
+          <input
+            type="email"
+            value={form.email}
+            onChange={(event) => setForm({ ...form, email: event.target.value })}
+            placeholder="tu@email.com"
+            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40"
+          />
+        </label>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <label className="grid gap-2 text-sm">
           <span className="font-semibold text-white/80">Teléfono</span>
           <input
+            type="tel"
             value={form.phone}
             onChange={(event) => setForm({ ...form, phone: event.target.value })}
             placeholder="+34 600 000 000"
             className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40"
           />
         </label>
-      </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
         <label className="grid gap-2 text-sm">
-          <span className="font-semibold text-white/80">Personas</span>
+          <span className="font-semibold text-white/80">Comensales</span>
           <input
             required
             min={1}
@@ -88,7 +104,9 @@ export default function ReservationForm({ site }: { site: Site }) {
             className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
           />
         </label>
+      </div>
 
+      <div className="grid gap-4 md:grid-cols-3">
         <label className="grid gap-2 text-sm">
           <span className="font-semibold text-white/80">Fecha</span>
           <input
@@ -108,43 +126,42 @@ export default function ReservationForm({ site }: { site: Site }) {
             className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
           />
         </label>
-      </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <label className="grid gap-2 text-sm">
+        <label className="grid gap-2 text-sm md:col-span-3 md:max-w-56">
           <span className="font-semibold text-white/80">¿Terraza o interior?</span>
           <select
             value={form.seating}
             onChange={(event) => setForm({ ...form, seating: event.target.value })}
-            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
+            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white w-full"
           >
             <option value="Terraza">Terraza</option>
             <option value="Interior">Interior</option>
             <option value="Indiferente">Indiferente</option>
           </select>
         </label>
+      </div>
 
+      <div className="grid gap-4 md:grid-cols-2">
         <label className="grid gap-2 text-sm">
-          <span className="font-semibold text-white/80">Motivo</span>
+          <span className="font-semibold text-white/80">Motivo (opcional)</span>
           <input
             value={form.occasion}
             onChange={(event) => setForm({ ...form, occasion: event.target.value })}
-            placeholder="Cumpleaños, aniversario, comida de empresa..."
+            placeholder="Cumpleaños, aniversario..."
+            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40"
+          />
+        </label>
+        <label className="grid gap-2 text-sm">
+          <span className="font-semibold text-white/80">Notas (opcional)</span>
+          <input
+            type="text"
+            value={form.notes}
+            onChange={(event) => setForm({ ...form, notes: event.target.value })}
+            placeholder="Alergias, preferencias..."
             className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40"
           />
         </label>
       </div>
-
-      <label className="grid gap-2 text-sm">
-        <span className="font-semibold text-white/80">Notas</span>
-        <textarea
-          rows={3}
-          value={form.notes}
-          onChange={(event) => setForm({ ...form, notes: event.target.value })}
-          placeholder="Alergias, necesidades especiales..."
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40"
-        />
-      </label>
 
       <div className="flex flex-wrap gap-3">
         <button
